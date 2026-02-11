@@ -21,11 +21,11 @@ export const listOrders = async (req, res) => {
     // 4. Return the data
     res.status(200).json({
       success: true,
-      count: data.orders ? data.orders.length : 0,
+      count: data.shipments ? data.shipments.length : 0,
       total: data.total, // ShipStation usually returns total count in metadata
       page: data.page,
       pages: data.pages,
-      orders: data.orders || [],
+      shipments: data.shipments || [],
     });
 
   } catch (error) {

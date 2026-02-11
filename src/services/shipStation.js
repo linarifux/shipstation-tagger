@@ -6,7 +6,7 @@ const ssClient = axios.create({
   baseURL: config.shipStation.baseUrl,
   headers: { 
     'Content-Type': 'application/json',
-    'API-Key': config.shipStation.apiKey 
+    'api-key': config.shipStation.apiKey 
   },
 });
 
@@ -17,19 +17,19 @@ export const shipStationService = {
    * @param {Object} params - { page, pageSize, orderStatus, sortBy, sortDir }
    */
   getOrders: async (params = {}) => {
+    console.log('shipstation service');
+    
     try {
       // Default to "awaiting_shipment" if no status is provided, 
       // but allow overriding it (e.g. passing null or 'shipped' will override this)
       const requestParams = {
-        orderStatus: 'awaiting_shipment', 
         page: 1,
-        pageSize: 100,
-        sortBy: 'orderDate',
-        sortDir: 'DESC',
+  
         ...params, // Merge user-provided params (allows overriding defaults)
       };
 
-      const response = await ssClient.get('/orders', { params: requestParams });
+      const response = await ssClient.get('/shipments');
+
       
       // Return the full object so we have access to 'total', 'page', etc.
       return response.data; 
